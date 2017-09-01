@@ -38,13 +38,22 @@ public class ForumFragment extends Fragment {
     private ArrayAdapter itensAdaptados;
     private ArrayList<Comentario> listaItens;
     private ListView lista;
+    private String autor;
 
     public ForumFragment() {
     }
 
+    public void setAutor(String autor){
+        this.autor = autor;
+    }
+    public String getAutor(){
+        return autor;
+    }
+
    @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
             bancoDados = getActivity().openOrCreateDatabase("AutoHelp", Context.MODE_PRIVATE , null);
             bancoDados.execSQL("CREATE TABLE IF NOT EXISTS Coment(id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," +
                     " txtPost VARCHAR(50) NOT NULL, autor VARCHAR(40), dataPost VARCHAR(20));");
@@ -73,10 +82,10 @@ public class ForumFragment extends Fragment {
                     GregorianCalendar calendar = new GregorianCalendar();
                     SimpleDateFormat formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm'h'", locale);
 
-                    post.setUsuario("Isabela Carolina");
+                    post.setUsuario(getAutor());
 
                     post.setDataPost(formatador.format(calendar.getTime()));
-                    post.setTxt_comentario(txtComentario.toString());
+                    post.setTxt_comentario(txtComentario.getText().toString());
 
                     GuardaPost(post);
                 }
@@ -94,6 +103,7 @@ public class ForumFragment extends Fragment {
                 Comentario comentario = listaItens.get(position);
                 Intent intent = new Intent(getActivity(), RespostaActivity.class);
                 intent.putExtra("txtComentario", comentario.getTxt_comentario());
+                intent.putExtra("data", comentario.getDataPost());
                 startActivity(intent);
             }
         });
@@ -116,11 +126,13 @@ public class ForumFragment extends Fragment {
                 boolean verificaExistencia = false;
 
                 while (!cursor.isAfterLast()) {
-                    if(cursor.getString(postIndex).isEmpty()){
+                    if(cursor.getString(postIndex).equals(comentario.getTxt_comentario())){
                         verificaExistencia = true;
                     }
+                    cursor.moveToNext();
                 }
-                if(verificaExistencia == false) {
+
+                if(!verificaExistencia) {
                     bancoDados.execSQL("INSERT INTO Coment( txtPost, autor, dataPost ) VALUES( '" + comentario.getTxt_comentario() +
                             "', '" + comentario.getUsuario() + "', '" + comentario.getDataPost() + "' ) ");
                     System.out.println("guardei");
@@ -152,12 +164,13 @@ public class ForumFragment extends Fragment {
             System.out.println("Cheguei pra lista");
 
             Comentario post;
+
             while (!cursor.isAfterLast()) {
                 post = new Comentario();
 
-                post.setTxt_comentario(cursor.getString(postIndex));
-                post.setUsuario(cursor.getString(autorIndex));
-                post.setDataPost(cursor.getString(dataIndex));
+                post.setTxt_comentario(cursor.getString(postIndex).toString());
+                post.setUsuario(cursor.getString(autorIndex).toString());
+                post.setDataPost(cursor.getString(dataIndex).toString());
 
                 //Log.i("Resultado: ", cursor.getString(postIndex));
                 listaItens.add(post);

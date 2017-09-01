@@ -26,20 +26,31 @@ public class RespostaActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView textView;
     String txtPergunta;
+    String dataPost;
     SQLiteDatabase bancoDados;
     private EditText txtComentario;
     private Button botaoLogar;
     ListView lista;
     ArrayAdapter itensAdaptados;
     ArrayList<Comentario> listaItens;
+    String autor;
+
+    public void SetAutor(String autor){
+        this.autor = autor;
+    }
+
+    public String getAutor(){
+        return autor;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resposta);
-        bancoDados = openOrCreateDatabase("AutoHelp", MODE_PRIVATE , null);
+        //bancoDados = openOrCreateDatabase("AutoHelp", MODE_PRIVATE , null);
+
         bancoDados.execSQL("CREATE TABLE IF NOT EXISTS Resposta(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " txtPost VARCHAR(50), autor VARCHAR(40) NOT NULL, dataPost VARCHAR(40) NOT NULL);");
+                " txtPost VARCHAR(50), autor VARCHAR(40) NOT NULL, dataPost VARCHAR(40) NOT NULL, Questao VARCHAR(40) NOT NULL);");
         System.out.println("Criei o bd");
 
         Bundle extra = getIntent().getExtras();
@@ -47,6 +58,7 @@ public class RespostaActivity extends AppCompatActivity {
 
         if(extra != null){
             txtPergunta = extra.getString("txtComentario");
+            dataPost = extra.getString("data");
         }
 
         textView.setText(txtPergunta);
@@ -67,7 +79,7 @@ public class RespostaActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Comentario post = new Comentario();
                     post.setTxt_comentario(txtComentario.getText().toString());
-                    post.setUsuario("Isabela Carolina");
+                    post.setUsuario(getAutor());
 
                     Locale locale = new Locale("pt","BR");
                     GregorianCalendar calendar = new GregorianCalendar();
@@ -94,30 +106,32 @@ public class RespostaActivity extends AppCompatActivity {
             } else {
                 System.out.println("entrei aqui");
 
-                Cursor cursor = bancoDados.rawQuery("SELECT txtPost FROM Resposta", null);
+                Cursor cursor = bancoDados.rawQuery("SELECT txtPost FROM Resposta WHERE Questao = "+dataPost+";", null);
                 int postIndex = cursor.getColumnIndex("txtPost");
                 cursor.moveToFirst();
 
                 boolean verificaExistencia = false;
 
                 while (!cursor.isAfterLast()) {
-                    if(cursor.getString(postIndex).isEmpty()){
+                    if(cursor.getString(postIndex).equals(comentario.getTxt_comentario())){
                         verificaExistencia = true;
                     }
+                    cursor.moveToNext();
                 }
-                if(verificaExistencia == false) {
-                    bancoDados.execSQL("INSERT INTO Resposta( txtPost, autor, dataPost ) VALUES( '" + comentario.getTxt_comentario() +
-                            "', '" + comentario.getUsuario() + "', '" + comentario.getDataPost() + "' ) ");
+
+                if(!verificaExistencia) {
+                    bancoDados.execSQL("INSERT INTO Resposta( txtPost, autor, dataPost, Questao ) VALUES( '" + comentario.getTxt_comentario() +
+                            "', '" + comentario.getUsuario() + "', '" + comentario.getDataPost() + "', '"+ dataPost +"' ) ");
                     System.out.println("guardei");
 
-                    Toast.makeText(RespostaActivity.this, "Dúvida Publicada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RespostaActivity.this, "Resposta Publicada", Toast.LENGTH_SHORT).show();
                     txtComentario.setText("");
                     recuperaPost(lista);
+
                 } else {
-                    Toast.makeText(RespostaActivity.this, "Dúvida já Publicada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RespostaActivity.this, "Resposta já Publicada", Toast.LENGTH_SHORT).show();
                 }
             }
-
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -125,7 +139,7 @@ public class RespostaActivity extends AppCompatActivity {
 
     public void recuperaPost(ListView lista){
         try {
-            Cursor cursor = bancoDados.rawQuery("SELECT * FROM Resposta ORDER BY id DESC", null);
+            Cursor cursor = bancoDados.rawQuery("SELECT * FROM Resposta WHERE Questao = "+ dataPost +" ORDER BY id DESC", null);
             //int IdIndex = cursor.getColumnIndex("id");
             int postIndex = cursor.getColumnIndex("txtPost");
             int autorIndex = cursor.getColumnIndex("autor");

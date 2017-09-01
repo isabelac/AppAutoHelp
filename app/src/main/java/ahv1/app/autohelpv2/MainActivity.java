@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ahv1.app.autohelpv2.adapter.TabAdapter;
+import ahv1.app.autohelpv2.fragment.ForumFragment;
 import ahv1.app.autohelpv2.helper.SlidingTabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
+
+    private static ForumFragment setAutor;
 
     protected SQLiteDatabase bancoDados;
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //setAutor.setAutor(getIntent().getStringExtra("Username"));
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("AutoHelp");

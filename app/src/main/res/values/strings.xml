@@ -9,4 +9,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="publicar_duvida">Publicar Dúvida</string>
     <string name="publicar">Publicar</string>
+
+    <string name="emptyString" />
 </resources>
