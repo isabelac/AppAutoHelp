@@ -31,11 +31,9 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
-
         if(comentarios != null){
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-
             view = inflater.inflate(R.layout.lista_post, parent, false);
             TextView comentario = (TextView) view.findViewById(R.id.texComent);
             TextView autor = (TextView) view.findViewById(R.id.textView);
@@ -45,6 +43,7 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
             comentario.setText(post.getTxt_comentario());
             autor.setText(post.getUsuario());
             data.setText(post.getDataPost());
+
         }
         return  view;
     }

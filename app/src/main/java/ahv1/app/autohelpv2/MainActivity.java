@@ -1,30 +1,50 @@
 package ahv1.app.autohelpv2;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Outline;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewOutlineProvider;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import ahv1.app.autohelpv2.Activity.Comentario;
+import ahv1.app.autohelpv2.Cadastro_Login.LoginActivity;
 import ahv1.app.autohelpv2.adapter.TabAdapter;
-import ahv1.app.autohelpv2.fragment.ForumFragment;
+import ahv1.app.autohelpv2.fragment.ForumDAO;
 import ahv1.app.autohelpv2.helper.SlidingTabLayout;
+
+//import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
+    private ListView lista;
 
-    private static ForumFragment setAutor;
 
     protected SQLiteDatabase bancoDados;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -67,10 +88,78 @@ public class MainActivity extends AppCompatActivity {
             case R.id.EdPerfil:
                 return true;
             case R.id.sair:
+                deslogarUsuario();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void deslogarUsuario() {
+        SharedPreferences sessao = getSharedPreferences("usuarioLogado", MODE_PRIVATE);
+        SharedPreferences.Editor edit = sessao.edit();
+        edit.clear().commit();
+        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
+
+    public void ButtonJanela(View v) {
+        System.out.println("onclik");
+        if (v.getId() == R.id.floatingButton) {
+            final EditText edit = new EditText(MainActivity.this.getApplicationContext());
+            AlertDialog.Builder alert =  new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Publicar Comentario: ")
+                    .setMessage("Digite a dúvida que deseja publicar no mural")
+                    .setView(edit)
+                    .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            lista = (ListView) findViewById(R.id.List_id);
+                            Comentario post = new Comentario();
+                            Locale locale = new Locale("pt", "BR");
+                            GregorianCalendar calendar = new GregorianCalendar();
+                            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", locale);
+
+                            post.setDataPost(formatador.format(calendar.getTime()));
+                            post.setUsuario(getIntent().getStringExtra("Username"));
+                            post.setTxt_comentario(edit.getText().toString());
+
+                            System.out.println(edit.getText().toString());
+
+                            ForumDAO persist = new ForumDAO(MainActivity.this);
+                            String resultado = persist.GuardaPost(post, lista, MainActivity.this);
+
+                            Toast.makeText(MainActivity.this, ""+resultado+"", Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                    // negative button
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainActivity.this, "Comentario não publicado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            alert.create().show();
+        }
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void initLFloatingButtons() {
+
+        final int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 56, getResources().getDisplayMetrics());
+
+        final ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setOval(0, 0, size, size);
+            }
+        };
+
+        ImageButton floatingButton = ((ImageButton) findViewById(R.id.floatingButton));
+        floatingButton.setOutlineProvider(viewOutlineProvider);
+        floatingButton.setClipToOutline(true);
+
     }
 
 

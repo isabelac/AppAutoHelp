@@ -11,4 +11,6 @@
     <string name="publicar">Publicar</string>
 
     <string name="emptyString" />
+    <string name="logar">Logar</string>
+    <string name="cadastrar_se">Cadastrar-se</string>
 </resources>
