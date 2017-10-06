@@ -19,15 +19,15 @@ import ahv1.app.autohelpv2.adapter.ComentarioAdapter;
  */
 
 public class RespostaDAO extends SQLiteOpenHelper {
-    private SQLiteDatabase bancoDados;
+    SQLiteDatabase bancoDados;
     String verificaGuarda = null;
-    static String sql = "CREATE TABLE IF NOT EXISTS Resp_Coment(id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," +
+    static String sql = "CREATE TABLE IF NOT EXISTS PostResposta(id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," +
             " txtPost VARCHAR(50) NOT NULL, autor VARCHAR(40), dataPost VARCHAR(20), id_questao VARCHAR(20) NOT NULL);";
     ArrayList<Comentario> listaItensResp;
     ArrayAdapter itemResp;
 
     public RespostaDAO(Context context) {
-        super(context, "AutoHelp", null, 1);
+        super(context, "AutoHelpResposta", null, 1);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RespostaDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXIST Resp_Coment";
+        String query = "DROP TABLE IF EXIST PostResposta";
         db.execSQL(query);
         this.onCreate(db);
     }
@@ -56,6 +56,10 @@ public class RespostaDAO extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
                 System.out.println("entrei aqui");
 
+                String query = "select * from PostResposta";
+                Cursor cursor = bancoDados.rawQuery(query,null);
+                int count = cursor.getCount();
+
                 values.put("txtPost", comentario.getTxt_comentario());
                 values.put("autor", comentario.getUsuario());
                 values.put("dataPost", comentario.getDataPost());
@@ -63,11 +67,12 @@ public class RespostaDAO extends SQLiteOpenHelper {
 
                 System.out.println("entrei aqui tbm");
 
-                bancoDados.insert("Resp_Coment", null, values);
+                bancoDados.insert("PostResposta", null, values);
                 verificaGuarda = "Resposta Publicada";
-                recuperaResposta(lista, dataPost, context);
             }
 
+            recuperaResposta(lista, dataPost, context);
+            bancoDados.close();
             return verificaGuarda;
         } catch(Exception e){
             e.printStackTrace();
@@ -77,30 +82,35 @@ public class RespostaDAO extends SQLiteOpenHelper {
 
     public void recuperaResposta(ListView lista, String dataPost, Context context){
         try {
-            bancoDados = getReadableDatabase();
-            Cursor cursor = bancoDados.rawQuery("SELECT * FROM Resp_Coment WHERE id_questao = "+ dataPost +" ORDER BY id DESC", null);
-            int postIndex = cursor.getColumnIndex("txtPost");
-            int autorIndex = cursor.getColumnIndex("autor");
-            int dataIndex = cursor.getColumnIndex("dataPost");
+            bancoDados = this.getReadableDatabase();
+
+            String query =  "SELECT * FROM PostResposta WHERE  id_questao = '"+ dataPost+"' ORDER BY dataPost DESC";
+            Cursor cursorResp = bancoDados.rawQuery(query, null);
+
+            System.out.println("executei query");
+            int postIndex = cursorResp.getColumnIndex("txtPost");
+            int autorIndex = cursorResp.getColumnIndex("autor");
+            int dataIndex = cursorResp.getColumnIndex("dataPost");
 
             listaItensResp = new ArrayList<>();
-            cursor.moveToFirst();
-            System.out.println("Cheguei pra lista");
+            cursorResp.moveToFirst();
+            System.out.println("Cheguei pra lista resposta");
 
             Comentario post;
-            while (!cursor.isAfterLast()) {
+            while (!cursorResp.isAfterLast()) {
                 post = new Comentario();
 
-                post.setTxt_comentario(cursor.getString(postIndex));
-                post.setUsuario(cursor.getString(autorIndex));
-                post.setDataPost(cursor.getString(dataIndex));
+                post.setTxt_comentario(cursorResp.getString(postIndex));
+                post.setUsuario(cursorResp.getString(autorIndex));
+                post.setDataPost(cursorResp.getString(dataIndex));
 
-                Log.i("Resultado: ", cursor.getString(postIndex));
+                Log.i("Resultado: ", cursorResp.getString(postIndex));
                 listaItensResp.add(post);
-                cursor.moveToNext();
+                cursorResp.moveToNext();
             }
 
-            //itensAdaptados = new ArrayAdapter<>(RespostaActivity.this, R.layout.list, listaItens);
+
+            //itemResp = new ArrayAdapter<>(context, R.layout.list, listaItensResp);
             itemResp = new ComentarioAdapter(context, listaItensResp);
 
             lista.setAdapter(itemResp);

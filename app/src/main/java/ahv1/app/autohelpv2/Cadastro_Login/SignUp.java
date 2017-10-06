@@ -1,6 +1,7 @@
 package ahv1.app.autohelpv2.Cadastro_Login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class SignUp extends Activity {
             String pass2str = pass2.getText().toString();
 
             if(!pass1str.equals(pass2str)) {
-                Toast pass = Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT);
+                Toast pass = Toast.makeText(SignUp.this, "Senhas não Conferem", Toast.LENGTH_SHORT);
                 pass.show();
 
             } else{
@@ -50,6 +51,11 @@ public class SignUp extends Activity {
 
                 helper.insertContact(c);
             }
+
+            Toast teste = Toast.makeText(SignUp.this, "Usuário Cadastrado", Toast.LENGTH_SHORT);
+            teste.show();
+            Intent i = new Intent(SignUp.this, LoginActivity.class);
+            startActivity(i);
         }
     }
 }

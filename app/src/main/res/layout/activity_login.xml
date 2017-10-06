@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical|center_horizontal"
-    android:background="#DCDCDC"
+    android:background="@drawable/background_login"
     tools:context="ahv1.app.autohelpv2.Cadastro_Login.LoginActivity">
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" >
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
+            android:layout_width="600dp"
+            android:layout_height="180dp"
+            android:src="@drawable/logo3"
             android:layout_centerHorizontal="true"
             android:elevation="3dp"
             android:layout_marginBottom="23dp"
@@ -45,29 +47,36 @@
             android:hint=" Senha"
             android:background="@drawable/edit"/>
 
-        <Button
-            android:layout_width="130dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cadastrar_se"
-            android:id="@+id/Bsignup"
-            android:onClick="onButtonClick"
             android:layout_below="@+id/TFpassword"
-            android:layout_alignStart="@+id/image"
-            android:background="@drawable/botao"
-            android:textColor="@android:color/white"
-            android:elevation="3dp"/>
+            android:layout_centerHorizontal="true">
 
-        <Button
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="@string/logar"
-            android:textColor="@android:color/white"
-            android:id="@+id/Blogin"
-            android:onClick="onButtonClick"
-            android:layout_below="@+id/TFpassword"
-            android:layout_alignEnd="@+id/image"
-            android:background="@drawable/botao"
-            android:elevation="3dp"/>
+            <Button
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cadastrar_se"
+                android:id="@+id/Bsignup"
+                android:onClick="onButtonClick"
+                android:background="@drawable/botao"
+                android:textColor="@android:color/white"
+                android:elevation="3dp"/>
+
+            <Button
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/logar"
+                android:textColor="@android:color/white"
+                android:id="@+id/Blogin"
+                android:onClick="onButtonClick"
+                android:layout_toRightOf="@id/Bsignup"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/botao"
+                android:elevation="3dp"/>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 </RelativeLayout>
