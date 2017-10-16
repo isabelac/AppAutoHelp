@@ -24,11 +24,14 @@ public class ForumDAO extends SQLiteOpenHelper {
     String verificaGuarda = null;
     static String sql = "CREATE TABLE IF NOT EXISTS Coment(id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," +
             " txtPost VARCHAR(50) NOT NULL, autor VARCHAR(40), dataPost VARCHAR(20));";
-    ArrayList<Comentario> listaItens;
+    static ArrayList<Comentario> listaItens;
+    ArrayList<Comentario> listaItens2;
     ArrayAdapter itensAdaptados;
+    ListView lista;
 
     public ForumDAO(Context context) {
         super(context, "AutoHelp", null, 1);
+        listaItens = new ArrayList<>();
     }
 
     @Override
@@ -44,10 +47,6 @@ public class ForumDAO extends SQLiteOpenHelper {
         String query = "DROP TABLE IF EXIST Coment";
         db.execSQL(query);
         this.onCreate(db);
-    }
-
-    public ArrayList<Comentario> getListaItens(){
-        return listaItens;
     }
 
     public String GuardaPost(Comentario comentario, ListView lista, Context context) {
@@ -79,7 +78,7 @@ public class ForumDAO extends SQLiteOpenHelper {
                     bancoDados = this.getWritableDatabase();
                     ContentValues values = new ContentValues();
                     String query = "select * from Coment ";
-                    Cursor cursor = bancoDados.rawQuery(query,null);
+                    Cursor cursor = bancoDados.rawQuery(query, null);
                     int count = cursor.getCount();
                     values.put("txtPost", comentario.getTxt_comentario());
                     values.put("autor", comentario.getUsuario());
@@ -88,12 +87,12 @@ public class ForumDAO extends SQLiteOpenHelper {
                     bancoDados.insert("Coment", null, values);
 
                     verificaGuarda = "Dúvida Publicada";
-                    //recuperaPost(lista);
 
                 } else {
                     verificaGuarda = "Dúvida Publicada";
                 }
             }
+
                 recuperaPost(lista, context);
                 bancoDados.close();
                 return verificaGuarda;
@@ -113,7 +112,7 @@ public class ForumDAO extends SQLiteOpenHelper {
             int postIndex = cursor.getColumnIndex("txtPost");
             int autorIndex = cursor.getColumnIndex("autor");
             int dataIndex = cursor.getColumnIndex("dataPost");
-            listaItens = new ArrayList<>();
+            System.out.println("tamanho :"+listaItens.size());
             cursor.moveToFirst();
             System.out.println("Cheguei pra lista");
 
@@ -131,12 +130,10 @@ public class ForumDAO extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
             //itensAdaptados = new ArrayAdapter<String>(context, R.layout.list,teste);
-
             itensAdaptados = new ComentarioAdapter(context, listaItens);
 
-            System.out.println("To aqui");
+            System.out.println("tamanho 2: "+ listaItens.size());
             lista.setAdapter(itensAdaptados);
-
 
         }catch (Exception e){
             e.printStackTrace();

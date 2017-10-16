@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.Bpesquisa:
+                SearchView mSearchView = (SearchView) item.getActionView();
+                        mSearchView.setQueryHint(" Pesquisar ...");
+
+                mSearchView.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
                 return true;
             case R.id.Blocalizar:
                 return true;

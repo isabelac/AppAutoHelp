@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import ahv1.app.autohelpv2.fragment.ForumFragment;
+import ahv1.app.autohelpv2.fragment.TutoriaisFragment;
 
 /**
  * Created by bella on 27/07/2017.
@@ -24,7 +25,7 @@ public class TabAdapter extends FragmentStatePagerAdapter{
 
         switch (position){
             case 0 :
-                fragment = new ForumFragment();
+                fragment = new TutoriaisFragment();
                 break;
             case 1 :
                 fragment = new ForumFragment();

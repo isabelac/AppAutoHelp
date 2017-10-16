@@ -24,8 +24,13 @@ public class ForumFragment extends Fragment {
     private ArrayList<Comentario> listaItens;
     private ListView lista;
     private View view;
+    private static ForumDAO forum;
 
     public ForumFragment() {
+    }
+
+    public void setListaItens(ArrayList<Comentario> lista){
+        this.listaItens = lista;
     }
 
 
@@ -35,30 +40,28 @@ public class ForumFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_forum, container, false);
         lista = (ListView) view.findViewById(R.id.List_id);
-        final ForumDAO forum = new ForumDAO(getActivity());
+        forum = new ForumDAO(getActivity());
         forum.recuperaPost(lista, getActivity());
 
 
-        listaItens = forum.getListaItens();
-
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Respostas(position);
-            }
-        });
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Respostas(forum.listaItens.get(position));
+                }
+            });
+
 
         return view;
     }
 
-    public void Respostas(int posicao){
-        System.out.println("Entrei on clik");
-        Comentario comentario = listaItens.get(posicao);
+    public void Respostas(Comentario comentario){
+
         Intent intent = new Intent(getActivity(), RespostaActivity.class);
         intent.putExtra("txtComentario", comentario.getTxt_comentario());
         intent.putExtra("data", comentario.getDataPost());
         intent.putExtra("autor", comentario.getUsuario());
-        System.out.printf("startando activity");
+
         startActivity(intent);
     }
 
