@@ -1,17 +1,14 @@
 package ahv1.app.autohelpv2.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
-
-import ahv1.app.autohelpv2.Activity.Comentario;
+import ahv1.app.autohelpv2.ExpandableAdapter;
 import ahv1.app.autohelpv2.R;
 
 /**
@@ -19,59 +16,92 @@ import ahv1.app.autohelpv2.R;
  */
 
 public class TutoriaisFragment extends Fragment {
+    static final String listdesc[][][][] = {
+            { //Problemas
+                    {  // Motor
+                            {"Motor", "Vazamento de Agua"},
+                            {"     Problema na Bomba", ""},
+                            {"     Junta", ""},
+                            {"     Tubulação", ""}
+                    },
+                    {  // Superaquecimento
+                            {"Motor", "Superaquecimento"},
+                            {"     Ventoinha", ""},
 
-    private ArrayList<Comentario> listaItens;
-    private ArrayList<String> listaProb;
-    private ListView lista;
-    private View view;
+                    },
+                    {
+                            {"Motor", "Fumaça"},
+                            {"     Fumaça branca em excesso", ""},
+                            {"     Fumaça escura", ""}
+                    },
+                    {
+                            {"Motor", "Vazamento de óleo"},
+                            {"     Mangueira", ""},
+                            {"     Junta", ""},
+                            {"     Filtro", ""},
+                            {"     Reservatório", ""}
 
-    public TutoriaisFragment() {
+                    }
+            },
+            {
+                    {
+                            {"Elétrica", "Faróis queimados"}
+                    },
+                    {
+                            {"Elétrica", "Carro não liga"},
+                            {"      Motor de arranque", ""},
+                            {"      Bateria", ""}
+                    },
+                    {
+                            {"Elétrica", "Som"},
+                            {"      Bateria", ""}
+                    },
+                    {
+                            {"Elétrica", "Bateria"},
+                            {"      Bateria arriada", ""}
+                    }
+            },
+            {
+                    {
+                            {"Rodas", "Pneus furados"}
+                    },
+                    {
+                            {"Rodas", "Rodas tortas"},
+                            {"      Parafuso da roda", ""},
+                            {"      Parafuso tambor do freio", ""}
+                    },
+                    {
+                            {"Rodas", "Barulhos nas rodas"},
+                            {"      Roda torta", ""},
+                            {"      Problemas comuns", ""}
+                    }
+            }
+    };
+
+    View v;
+    private ExpandableAdapter colorExpListAdapter;
+    ExpandableListView list;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        v = inflater.inflate(R.layout.main, container, false);
+        return v;
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        view = inflater.inflate(R.layout.fragment_tutoriais, container, false);
-
-        lista = (ListView) view.findViewById(R.id.listviewprob);
-
-        try {
-            ProblemasDAO persisteProb = new ProblemasDAO(getActivity());
-            persisteProb.listaProblemas(lista, getActivity());
-
-                persisteProb.insereProblemas("Rodas", lista, getActivity());
-                persisteProb.insereProblemas("Motor", lista, getActivity());
-                persisteProb.insereProblemas("Suspensão", lista, getActivity());
-                persisteProb.insereProblemas("Elétrica", lista, getActivity());
-
-            persisteProb.listaProblemas(lista, getActivity());
-
-
-            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Respostas(position);
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return view;
+        list = (ExpandableListView) v.findViewById(R.id.listAdp);
+        colorExpListAdapter =
+                new ExpandableAdapter(
+                        getActivity(),
+                        list,
+                        listdesc
+                );
+        list.setAdapter(colorExpListAdapter);
+        list.setGroupIndicator(null);
     }
-
-
-    public void Respostas(int posicao) {
-
-        String problema = listaProb.get(posicao);
-        Intent intent = new Intent(getActivity(), ListaProbEspecifico.class);
-        intent.putExtra("problema", problema);
-        System.out.println(problema + "thales");
-        startActivity(intent);
-    }
-
 }
-
