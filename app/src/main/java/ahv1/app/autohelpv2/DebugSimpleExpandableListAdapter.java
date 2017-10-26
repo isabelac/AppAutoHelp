@@ -23,11 +23,13 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
                    {"Roda torta", "Problemas comuns"}}}
                 };
 
-  String prob;
+    static final String listapai[][] = {{"Faróis Queimados"}, {"Pneu Furado"}};
 
+    String prob;
+    DebugExpandableListView[] listcache;
     int tpai, tchild;
 
-    public DebugSimpleExpandableListAdapter(int tpai, int tchild, Context context,
+    public DebugSimpleExpandableListAdapter(DebugExpandableListView listcache[], int tpai, int tchild, Context context,
                                             List<? extends Map<String, ?>> groupData, int groupLayout,
                                             String[] groupFrom, int[] groupTo,
                                             List<? extends List<? extends Map<String, ?>>> childData,
@@ -38,14 +40,16 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
         this.listachild = childData;
         this.tchild = tchild;
         this.tpai = tpai;
+        this.listcache = listcache;
     }
 
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View v = super.getChildView( groupPosition, childPosition, isLastChild, convertView, parent );
+        System.out.println("listdesc["+tpai+"]["+tchild+"]["+groupPosition+"]["+childPosition+"]");
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai);
+                 //   System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai);
                 if(tpai==0){
                      prob = listdesc[tpai][tchild][groupPosition][childPosition];
                 } else {
@@ -67,8 +71,10 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
         return v;
     }
 
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View v = super.getGroupView( groupPosition, isExpanded, convertView, parent );
+        //lista[tpai][tchild][groupPosition].length;
+
         return v;
     }
 

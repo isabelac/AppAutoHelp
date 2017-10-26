@@ -25,6 +25,7 @@ public class ForumFragment extends Fragment {
     private ListView lista;
     private View view;
     private static ForumDAO forum;
+    String usuario;
 
     public ForumFragment() {
     }
@@ -43,7 +44,8 @@ public class ForumFragment extends Fragment {
         forum = new ForumDAO(getActivity());
         forum.recuperaPost(lista, getActivity());
 
-
+        usuario = getActivity().getIntent().getStringExtra("Username");
+        System.out.println("Username: "+usuario);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,6 +63,7 @@ public class ForumFragment extends Fragment {
         intent.putExtra("txtComentario", comentario.getTxt_comentario());
         intent.putExtra("data", comentario.getDataPost());
         intent.putExtra("autor", comentario.getUsuario());
+        intent.putExtra("Username", usuario);
 
         startActivity(intent);
     }

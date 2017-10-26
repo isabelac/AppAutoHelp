@@ -5,13 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ahv1.app.autohelpv2.adapter.ComentarioAdapter;
+import ahv1.app.autohelpv2.adapter.RespostaAdapter;
 
 
 /**
@@ -27,7 +26,7 @@ public class RespostaDAO extends SQLiteOpenHelper {
     ArrayAdapter itemResp;
 
     public RespostaDAO(Context context) {
-        super(context, "AutoHelpResposta", null, 1);
+        super(context, "AutoHelpResp2", null, 1);
     }
 
     @Override
@@ -99,19 +98,20 @@ public class RespostaDAO extends SQLiteOpenHelper {
             Comentario post;
             while (!cursorResp.isAfterLast()) {
                 post = new Comentario();
-
+                String teste = cursorResp.getString(autorIndex);
+                System.out.println("TesteAutor: "+teste+autorIndex);
                 post.setTxt_comentario(cursorResp.getString(postIndex));
-                post.setUsuario(cursorResp.getString(autorIndex));
+                post.setUsuario(cursorResp.getString(autorIndex).toString());
                 post.setDataPost(cursorResp.getString(dataIndex));
 
-                Log.i("Resultado: ", cursorResp.getString(postIndex));
+                //Log.i("Resultado: ", cursorResp.getString(autorIndex));
                 listaItensResp.add(post);
                 cursorResp.moveToNext();
             }
 
 
             //itemResp = new ArrayAdapter<>(context, R.layout.list, listaItensResp);
-            itemResp = new ComentarioAdapter(context, listaItensResp);
+            itemResp = new RespostaAdapter(context, listaItensResp);
 
             lista.setAdapter(itemResp);
 

@@ -1,6 +1,8 @@
 package ahv1.app.autohelpv2.Activity;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,14 +13,18 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
+import ahv1.app.autohelpv2.EditaPerfil.CircleImage;
 import ahv1.app.autohelpv2.R;
 
 public class RespostaActivity extends AppCompatActivity {
@@ -32,17 +38,20 @@ public class RespostaActivity extends AppCompatActivity {
     ListView listaResp;
     String autor;
     RespostaDAO resp;
+    String Autor2;
+    ImageView imagem;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resposta);
-        System.out.printf("Entrei activity");
+
         Bundle extra = getIntent().getExtras();
         textView = (TextView) findViewById(R.id.textResposta);
         textautor = (TextView) findViewById(R.id.textautor);
         textdata = (TextView) findViewById(R.id.textdata);
+        imagem = (ImageView) findViewById(R.id.imageViewResp);
 
         listaResp = (ListView) findViewById(R.id.ListR);
 
@@ -50,6 +59,17 @@ public class RespostaActivity extends AppCompatActivity {
             txtPergunta = extra.getString("txtComentario");
             dataPost = extra.getString("data");
             autor = extra.getString("autor");
+            Autor2 = extra.getString("Username");
+        }
+
+        CircleImage circleImage = new CircleImage(this);
+        DatabaseHelper dataHelper = new DatabaseHelper(this);
+        byte[] imgbyte = dataHelper.recuperaFoto(autor);
+
+        if(imgbyte != null) {
+           ByteArrayInputStream streamFoto = new ByteArrayInputStream(imgbyte);
+           Bitmap fotoBitmap = BitmapFactory.decodeStream(streamFoto);
+           imagem.setImageBitmap(fotoBitmap);
         }
 
         textView.setText(txtPergunta);
@@ -95,7 +115,8 @@ public class RespostaActivity extends AppCompatActivity {
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", locale);
 
             post.setDataPost(formatador.format(calendar.getTime()));
-            post.setUsuario(getIntent().getStringExtra("Username"));
+            post.setUsuario(Autor2);
+        System.out.println("è este autor: "+getIntent().getStringExtra("Username")+" "+Autor2);
             post.setTxt_comentario(edit.getText().toString());
 
             System.out.println(edit.getText().toString());

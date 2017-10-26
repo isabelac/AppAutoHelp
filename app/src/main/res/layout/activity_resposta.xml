@@ -10,94 +10,153 @@
         android:id="@+id/toolbarConversa"
         layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/textautor"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarConversa"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"
-        android:text="olaaaaaaaaaaa"
-        android:textSize="14dp"
-        android:textColor="@android:color/black"/>
+        android:layout_marginLeft="10dp">
 
-    <TextView
-        android:id="@+id/textdata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"
-        android:text="olaaaaaaaaaaa"
-        android:textSize="14dp"
-        android:textColor="@android:color/black"
-        android:layout_above="@+id/textResposta"
-        android:layout_alignEnd="@+id/textResposta"
-        android:layout_marginEnd="23dp" />
+        <TextView
+            android:id="@+id/texttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textResposta"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="Respostas"
+            android:textSize="25dp"
+            android:textStyle="bold|italic"
+            android:fontFamily="serif"
+            android:textColor="@color/colorPrimary"/>
 
-    <TextView
-        android:id="@+id/textResposta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textautor"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:text="olaaaaaaaaaaa"
-        android:textSize="14dp"
-        android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/texttitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textStyle="bold|italic"
+            android:text="Dúvida"
+            android:textSize="25dp"
+            android:fontFamily="serif"
+            android:textColor="@color/colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/imageViewResp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/ic_action_user"
+            android:layout_alignTop="@+id/textautor"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textautor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="olaaaaaaaaaaa"
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@+id/texttitle2"
+            android:layout_toRightOf="@+id/imageViewResp" />
+
+        <TextView
+            android:id="@+id/textdata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="olaaaaaaaaaaa"
+            android:textSize="12dp"
+            android:textColor="@color/colorAccent"
+            android:layout_above="@+id/textResposta"
+            android:layout_alignEnd="@+id/textResposta"
+            android:layout_marginEnd="23dp" />
+
+        <TextView
+            android:id="@+id/textResposta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textautor"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:text="olaaaaaaaaaaa"
+            android:textSize="17dp"
+            android:textColor="@android:color/black" />
 
 
-    <ListView
-        android:id="@+id/ListR"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/textResposta"
-        android:layout_centerHorizontal="true" />
+        <ListView
+            android:id="@+id/ListR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/texttitle"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/relativeLayout"
+            android:divider="@color/divisor"
+            android:dividerHeight="1.5dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="3dp"
-        android:contentDescription="description">
-
-        <EditText
-            android:id="@+id/EditTeste"
-            android:layout_width="300dp"
-            android:layout_height="46dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edit"
-            android:contentDescription="description"
-            android:elevation="5dp"
-            android:onClick="ButtonResposta"
-            android:layout_marginStart="10dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="19dp"
-            android:hint="  Reponder Pergunta ..."/>
-
-        <ImageButton
-            android:id="@+id/ButtonResposta"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/oval_ripple"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="3dp"
             android:contentDescription="description"
-            android:elevation="5dp"
-            android:src="@drawable/ic_action_send"
-            android:onClick="ButtonResposta"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
-</RelativeLayout>
+            android:id="@+id/relativeLayout">
+
+            <EditText
+                android:id="@+id/EditTeste"
+                android:layout_width="270dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/edit"
+                android:contentDescription="description"
+                android:elevation="5dp"
+                android:onClick="ButtonResposta"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="19dp"
+                android:hint="  Reponder Pergunta ..."/>
+
+            <ImageButton
+                android:id="@+id/ButtonResposta"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/EditTeste"
+                android:background="@drawable/oval_ripple"
+                android:contentDescription="description"
+                android:elevation="5dp"
+                android:src="@drawable/ic_action_send"
+                android:onClick="ButtonResposta"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_marginTop="10dp"
+            android:background="@color/divisor"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@+id/textResposta" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

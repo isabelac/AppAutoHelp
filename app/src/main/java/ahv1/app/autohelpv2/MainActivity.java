@@ -31,6 +31,7 @@ import java.util.Locale;
 
 import ahv1.app.autohelpv2.Activity.Comentario;
 import ahv1.app.autohelpv2.Cadastro_Login.LoginActivity;
+import ahv1.app.autohelpv2.EditaPerfil.EditaPerfil;
 import ahv1.app.autohelpv2.adapter.TabAdapter;
 import ahv1.app.autohelpv2.fragment.ForumDAO;
 import ahv1.app.autohelpv2.helper.SlidingTabLayout;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private ListView lista;
+    private static String user = null;
 
 
     protected SQLiteDatabase bancoDados;
@@ -52,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //setAutor.setAutor(getIntent().getStringExtra("Username"));
+        if(user == null) {
+            user = getIntent().getStringExtra("Username");
+        }
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("AutoHelp");
@@ -91,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Blocalizar:
                 return true;
             case R.id.EdPerfil:
+                Intent inte = new Intent(MainActivity.this, EditaPerfil.class);
+                inte.putExtra("Usuario", user);
+                startActivity(inte);
                 return true;
             case R.id.sair:
                 deslogarUsuario();

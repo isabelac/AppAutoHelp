@@ -18,17 +18,15 @@ import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
 import ahv1.app.autohelpv2.EditaPerfil.CircleImage;
 import ahv1.app.autohelpv2.R;
 
-
 /**
- * Created by bella on 28/07/2017.
+ * Created by bella on 26/10/2017.
  */
 
-public class ComentarioAdapter extends ArrayAdapter<Comentario> {
-
+public class RespostaAdapter extends ArrayAdapter<Comentario> {
     private ArrayList<Comentario> comentarios;
     private Context context;
 
-    public ComentarioAdapter(Context c, ArrayList<Comentario> objects) {
+    public RespostaAdapter(Context c, ArrayList<Comentario> objects) {
         super(c, 0, objects);
         this.context = c;
         this.comentarios = objects;
@@ -40,7 +38,7 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
         if(comentarios != null){
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.lista_post, parent, false);
+            view = inflater.inflate(R.layout.lista_resposta, parent, false);
 
             TextView comentario = (TextView) view.findViewById(R.id.texComent);
             TextView autor = (TextView) view.findViewById(R.id.textView);

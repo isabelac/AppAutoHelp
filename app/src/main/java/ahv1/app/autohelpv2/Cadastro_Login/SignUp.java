@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import ahv1.app.autohelpv2.EditaPerfil.AdicionaFotoPerfil;
 import ahv1.app.autohelpv2.R;
 
 /**
@@ -38,7 +39,7 @@ public class SignUp extends Activity {
             String pass2str = pass2.getText().toString();
 
             if(!pass1str.equals(pass2str)) {
-                Toast pass = Toast.makeText(SignUp.this, "Senhas não Conferem", Toast.LENGTH_SHORT);
+                Toast pass = Toast.makeText(SignUp.this, "Senhas Incopativeis", Toast.LENGTH_SHORT);
                 pass.show();
 
             } else{
@@ -48,14 +49,47 @@ public class SignUp extends Activity {
                 c.setEmail(emailstr);
                 c.setUname(unamestr);
                 c.setPass(pass1str);
+                System.out.println("Tá saindo isso: "+c.getEmail());
 
-                helper.insertContact(c);
+                String[] arrayEmail = c.getEmail().split("");
+                String[]arrayemail2 = c.getEmail().split(".");
+                boolean verificaEmail = false;
+                boolean verificaEmail2 = false;
+
+                for(int i = 0; i < arrayEmail.length; i++){
+                    if(arrayEmail[i].equals("@")){
+                        verificaEmail2 = true;
+                    }
+                }
+
+                System.out.println(verificaEmail +" "+verificaEmail2);
+                if(!c.getEmail().equals("") && !c.getName().equals("") && !c.getPass().equals("")
+                        && !c.getUname().equals("")){
+
+                    if( !verificaEmail2 ){
+                        Toast.makeText(SignUp.this, "Formato de Email Incorreto", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        String result = helper.searchPass(c.getUname());
+                        System.out.println("Resulta22: " + result);
+
+                        if (result == null) {
+                            helper.insertContact(c);
+                            Toast.makeText(SignUp.this, "Usuário Cadastrado com Sucesso", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(SignUp.this, AdicionaFotoPerfil.class);
+                            i.putExtra("UserF", namestr);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(SignUp.this, "Nome de Usuário Já Cadastrado no Sistema", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(SignUp.this, "Por Favor Preencha Todos os Campos", Toast.LENGTH_SHORT).show();
+                }
+
             }
-
-            Toast teste = Toast.makeText(SignUp.this, "Usuário Cadastrado", Toast.LENGTH_SHORT);
-            teste.show();
-            Intent i = new Intent(SignUp.this, LoginActivity.class);
-            startActivity(i);
         }
     }
 }

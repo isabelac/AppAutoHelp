@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "contacts.db";
+    private static final String DATABASE_NAME = "AHcontacts";
     private static final String TABLE_NAME = "contacts";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
     private static final String TABLE_CREATE = "create table contacts (id primary key not null," +
-            "name text not null, email text not null, uname text not null, pass text not null);";
+            "name text not null, email text not null, uname text not null, pass text not null, Imagem BLOB);";
 
 
     public DatabaseHelper(Context context) {
@@ -39,21 +39,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertContact(Contact c)
     {
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            String query = "select * from contacts ";
+            Cursor cursor = db.rawQuery(query, null);
+            int count = cursor.getCount();
+            values.put(COLUMN_ID, count);
+            values.put(COLUMN_NAME, c.getName());
+            values.put(COLUMN_EMAIL, c.getEmail());
+            values.put(COLUMN_UNAME, c.getUname());
+            values.put(COLUMN_PASS, c.getPass());
 
-        db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        String query = "select * from contacts ";
-        Cursor cursor = db.rawQuery(query,null);
-        int count = cursor.getCount();
-        values.put(COLUMN_ID, count);
-        values.put(COLUMN_NAME, c.getName());
-        values.put(COLUMN_EMAIL, c.getEmail());
-        values.put(COLUMN_UNAME, c.getUname());
-        values.put(COLUMN_PASS, c.getPass());
-
-        db.insert(TABLE_NAME, null, values);
-        db.close();
-
+            db.insert(TABLE_NAME, null, values);
+            db.close();
     }
 
     public String searchPass(String uname)
@@ -62,31 +60,115 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "select uname,pass from "+TABLE_NAME;
         Cursor cursor = db.rawQuery(query, null);
         String a,b;
-        b = "not found";
+        b = null;
 
-        if(cursor.moveToFirst())
-        {
+        if(cursor.moveToFirst()) {
             do{
-
                 a = cursor.getString(0);
 
-
-                if(a.equals(uname))
-                {
+                if(a.equals(uname)) {
                     b = cursor.getString(1);
                     break;
                 }
-
-
-            }
-
-            while(cursor.moveToNext());
+            } while(cursor.moveToNext());
         }
 
         return b;
 
     }
 
+    public Contact RetornaUser(String nomeUser){
+        db = this.getReadableDatabase();
+        String query = "select * from contacts where name = '"+nomeUser+"'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        int indexUser = cursor.getColumnIndex("name");
+        int indexNameUser = cursor.getColumnIndex("uname");
+        int indexEmail = cursor.getColumnIndex("email");
+        Contact contact = null;
+
+        if(cursor.moveToFirst()) {
+            contact = new Contact();
+            contact.setEmail(cursor.getString(indexEmail));
+            contact.setUname(cursor.getString(indexNameUser));
+            contact.setName(cursor.getString(indexUser));
+        }
+
+        return contact;
+    }
+
+    public byte[] recuperaFoto(String nome){
+        try{
+            db = getReadableDatabase();
+            String query = "select * from contacts where name = '"+nome+"'";
+            Cursor cursor = db.rawQuery(query, null);
+            int indexFoto = cursor.getColumnIndex("Imagem");
+            byte[] img = null;
+            cursor.moveToFirst();
+            if(cursor.getCount() == 0){
+                return null;
+            } else {
+                img = cursor.getBlob(indexFoto);
+            }
+            return img;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String mudaFoto(String autor, byte[] foto) {
+        try {
+            String resultado;
+            if (foto == null || autor.equals(null)) {
+                resultado = "Nenhuma Imagem Selecionada";
+            } else {
+                db = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
+                String query = "select * from contacts ";
+                Cursor cursor = db.rawQuery(query, null);
+                int count = cursor.getCount();
+                cursor.moveToFirst();
+
+                values.put("Imagem", foto);
+
+                db.update("contacts", values, ("name = '" + autor + "'"), null);
+                db.close();
+                resultado = "Imagem Guardada com Sucesso";
+            }
+            return resultado;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String UpdateContacts(Contact contact, byte[] foto){
+        String result;
+        System.out.println("olaqrida");
+        if(contact.getName().equals("") || contact.getEmail().equals("") ||
+                contact.getUname().equals("")){
+            result = "Por Favor, Preencha Todos os Campos";
+        } else {
+
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            values.put(COLUMN_NAME, contact.getName());
+            values.put(COLUMN_EMAIL, contact.getEmail());
+            values.put(COLUMN_UNAME, contact.getUname());
+            values.put("Imagem", foto);
+
+            db.update(TABLE_NAME, values, "name = '"+contact.getUname()+"'", null);
+            db.close();
+            result = "Atualização Feita com Sucesso!";
+        }
+
+        return result;
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

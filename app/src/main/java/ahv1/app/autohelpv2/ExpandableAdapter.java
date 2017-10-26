@@ -43,12 +43,12 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         View v = null;
         if (listViewCache[groupPosition] != null){
             v = listViewCache[groupPosition];
-        System.out.println("Acessei o if");
         }else {
             DebugExpandableListView dev = new DebugExpandableListView(context);
             dev.setRows(calculateRowCount(groupPosition, null));
             dev.setAdapter(
                     new DebugSimpleExpandableListAdapter(
+                            listViewCache,
                             groupPosition, childPosition,
                             context,
                             createGroupList(groupPosition),    // groupData describes the first-level entries

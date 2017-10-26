@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 i.putExtra("Username", str);
                 startActivity(i);
             } else {
-                Toast temp = Toast.makeText(LoginActivity.this, "Senhas não Conferem", Toast.LENGTH_SHORT);
+                Toast temp = Toast.makeText(LoginActivity.this, "Usuário ou Senha Incorreto", Toast.LENGTH_SHORT);
                 temp.show();
             }
         }

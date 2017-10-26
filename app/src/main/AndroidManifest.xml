@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ahv1.app.autohelpv2">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -9,8 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <activity android:name=".Cadastro_Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,22 +18,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activity.RespostaActivity"
+        <activity
+            android:name=".Activity.RespostaActivity"
             android:parentActivityName=".MainActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ahv1.app.autohelpv2.MainActivity" />
         </activity>
-
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Cadastro_Login.SignUp"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Cadastro_Login.SignUp" />
 
         <uses-sdk
             android:minSdkVersion="11"
             android:targetSdkVersion="17" />
 
+        <activity android:name=".EditaPerfil.AdicionaFotoPerfil"></activity>
+        <activity android:name=".EditaPerfil.EditaPerfil"></activity>
     </application>
 
 </manifest>

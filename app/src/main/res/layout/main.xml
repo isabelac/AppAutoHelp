@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-    android:background="@android:color/black">
- 
-     <ExpandableListView android:id="@+id/listAdp"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"/>
- 
-     <TextView android:id="@+id/android:empty"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/main_no_items"/>
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="10dp">
+
+    <RelativeLayout
+        android:id="@+id/texttitle5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Problemas"
+            android:textSize="25dp"
+            android:textStyle="bold|italic"
+            android:fontFamily="serif"
+            android:textColor="@color/colorPrimary"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texttitle5"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
+
+
+        <ExpandableListView android:id="@+id/listAdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/divisor"
+            android:dividerHeight="1.5dp"/>
+
+        <TextView android:id="@+id/android:empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_no_items"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

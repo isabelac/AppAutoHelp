@@ -56,26 +56,7 @@ public class ForumDAO extends SQLiteOpenHelper {
             if (comentario.getTxt_comentario().equals("")) {
                 verificaGuarda = "Nenhum texto digitado";
             } else {
-                System.out.println("entrei aqui");
-
-                bancoDados = this.getReadableDatabase();
-                Cursor t = bancoDados.rawQuery("SELECT * FROM Coment", null);
-                System.out.println("testando select");
-                int postIndex = t.getColumnIndex("txtPost");
-                t.moveToFirst();
-
-                boolean verificaExistencia = false;
-
-                while (!t.isAfterLast()) {
-                    if (t.getString(postIndex).equals(comentario.getTxt_comentario())) {
-                        verificaExistencia = true;
-                    }
-                    t.moveToNext();
-                }
-
-                if (!verificaExistencia) {
-
-                    bancoDados = this.getWritableDatabase();
+                                   bancoDados = this.getWritableDatabase();
                     ContentValues values = new ContentValues();
                     String query = "select * from Coment ";
                     Cursor cursor = bancoDados.rawQuery(query, null);
@@ -87,10 +68,6 @@ public class ForumDAO extends SQLiteOpenHelper {
                     bancoDados.insert("Coment", null, values);
 
                     verificaGuarda = "Dúvida Publicada";
-
-                } else {
-                    verificaGuarda = "Dúvida Publicada";
-                }
             }
 
                 recuperaPost(lista, context);
