@@ -45,7 +45,8 @@ public class TutoriaisFragment extends Fragment {
             },
             {
                     {
-                            {"Elétrica", "Faróis queimados"}
+                            {"Elétrica", "Faróis"},
+                            {"      Faróis queimados", ""}
                     },
                     {
                             {"Elétrica", "Carro não liga"},
@@ -63,7 +64,8 @@ public class TutoriaisFragment extends Fragment {
             },
             {
                     {
-                            {"Rodas", "Pneus furados"}
+                            {"Rodas", "Pneus"},
+                            {"      Pneus furados", ""}
                     },
                     {
                             {"Rodas", "Rodas tortas"},

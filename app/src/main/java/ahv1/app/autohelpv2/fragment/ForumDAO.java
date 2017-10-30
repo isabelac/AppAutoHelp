@@ -26,12 +26,20 @@ public class ForumDAO extends SQLiteOpenHelper {
             " txtPost VARCHAR(50) NOT NULL, autor VARCHAR(40), dataPost VARCHAR(20));";
     static ArrayList<Comentario> listaItens;
     ArrayList<Comentario> listaItens2;
-    ArrayAdapter itensAdaptados;
+    static ArrayAdapter itensAdaptados;
     ListView lista;
 
     public ForumDAO(Context context) {
         super(context, "AutoHelp", null, 1);
         listaItens = new ArrayList<>();
+    }
+
+    public static ArrayList<Comentario> getListaItens() {
+        return listaItens;
+    }
+
+    public static ArrayAdapter getItensAdaptados() {
+        return itensAdaptados;
     }
 
     @Override

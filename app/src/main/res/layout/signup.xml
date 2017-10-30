@@ -29,7 +29,8 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/edit"
             android:layout_marginBottom="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:nextFocusDown="@+id/TFemail"/>
 
 
         <EditText
@@ -41,7 +42,8 @@
             android:hint="  Email"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/edit"/>
+            android:background="@drawable/edit"
+            android:nextFocusDown="@+id/TFuname"/>
 
 
         <EditText
@@ -54,7 +56,8 @@
             android:hint="  Nome de Usuário"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/edit"/>
+            android:background="@drawable/edit"
+            android:nextFocusDown="@+id/TFpass1"/>
 
 
         <EditText

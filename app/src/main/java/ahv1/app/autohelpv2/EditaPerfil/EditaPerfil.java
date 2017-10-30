@@ -102,9 +102,8 @@ public class EditaPerfil extends AppCompatActivity {
     public String SalvaImage(byte[] byteImg, Contact contato){
         try{
             DatabaseHelper bd = new DatabaseHelper(this);
-            System.out.println("eua aquiiii");
-            String resposta = bd.UpdateContacts(contato, byteImg);
-            System.out.println(resposta+"huhhu");
+            String resposta = bd.UpdateContacts(contato, byteImg, autor);
+            autor = null;
             return resposta;
 
         } catch (Exception e){

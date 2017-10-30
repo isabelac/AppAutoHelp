@@ -18,8 +18,8 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
             {{{"Problema na Bomba", "Junta", "Tubulação"},
                    {"Ventoinha"}, {"Fumaça branca em excesso", "Fumaça escura"},
                    {"Mangueira", "Junta", "Filtro", "Reservatório"}}}, {
-            {{"Motor de arranque", "Bateria"},{"Bateria"},{"Bateria arriada"}}},
-            {{{"Parafuso da roda", "Parafuso tambor do freio"},
+            {{"Faróis Queimados"},{"Motor de arranque", "Bateria"},{"Bateria"},{"Bateria arriada"}}},
+            {{{"Pneu Furado"},{"Parafuso da roda", "Parafuso tambor do freio"},
                    {"Roda torta", "Problemas comuns"}}}
                 };
 
@@ -50,11 +50,8 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
             @Override
             public void onClick(View v) {
                  //   System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai);
-                if(tpai==0){
-                     prob = listdesc[tpai][tchild][groupPosition][childPosition];
-                } else {
-                     prob =  listdesc[tpai][tchild][groupPosition-1][childPosition];
-                }
+
+                prob = listdesc[tpai][tchild][groupPosition][childPosition];
                 AlertDialog.Builder alert =  new AlertDialog.Builder(context)
                         .setTitle("Resposta: ")
                         .setMessage("Você clicou em: "+prob).

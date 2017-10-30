@@ -2,6 +2,8 @@ package ahv1.app.autohelpv2;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +12,7 @@ import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -32,6 +35,7 @@ import java.util.Locale;
 import ahv1.app.autohelpv2.Activity.Comentario;
 import ahv1.app.autohelpv2.Cadastro_Login.LoginActivity;
 import ahv1.app.autohelpv2.EditaPerfil.EditaPerfil;
+import ahv1.app.autohelpv2.Maps.MapsActivityAH;
 import ahv1.app.autohelpv2.adapter.TabAdapter;
 import ahv1.app.autohelpv2.fragment.ForumDAO;
 import ahv1.app.autohelpv2.helper.SlidingTabLayout;
@@ -80,19 +84,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView;
+        MenuItem menuItem = menu.findItem(R.id.Bpesquisa);
+
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+            searchView = (SearchView) menuItem.getActionView();
+        } else {
+            searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        }
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Pesquisar . . .");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Bpesquisa:
-                SearchView mSearchView = (SearchView) item.getActionView();
-                        mSearchView.setQueryHint(" Pesquisar ...");
 
-                mSearchView.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
-                return true;
             case R.id.Blocalizar:
+                Intent intent = new Intent(MainActivity.this, MapsActivityAH.class);
+                startActivity(intent);
                 return true;
             case R.id.EdPerfil:
                 Intent inte = new Intent(MainActivity.this, EditaPerfil.class);
@@ -108,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deslogarUsuario() {
+        user = null;
         SharedPreferences sessao = getSharedPreferences("usuarioLogado", MODE_PRIVATE);
         SharedPreferences.Editor edit = sessao.edit();
         edit.clear().commit();

@@ -66,7 +66,7 @@
         android:text="olaaaaaaa"
         android:theme="@style/MyEditTextTheme"
         android:textColor="@android:color/black"
-        android:textAlignment="gravity"/>
+        android:ems="10" />
 
     <TextView
         android:id="@+id/NomeU"
@@ -93,7 +93,8 @@
         android:text="olaaaa"
         android:theme="@style/MyEditTextTheme"
         android:textAlignment="gravity"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        android:ems="10"/>
 
     <TextView
         android:id="@+id/Mail"
@@ -119,6 +120,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:theme="@style/MyEditTextTheme"
+        android:ems="10"
         android:textColor="@android:color/black"/>
 
     <Button

@@ -33,7 +33,11 @@
             android:layout_alignStart="@+id/TFpassword"
             android:layout_marginBottom="23dp"
             android:layout_centerHorizontal="true"
-            android:hint="   Usuário"
+            android:hint="  Usuário"
+            android:textAlignment="gravity"
+            android:nextFocusDown="@+id/TFpassword"
+            android:inputType="text"
+            android:ems="10"
             android:background="@drawable/edit"/>
 
 
@@ -45,6 +49,7 @@
             android:layout_below="@+id/TFusername"
             android:layout_marginBottom="23dp"
             android:hint=" Senha"
+            android:ems="10"
             android:background="@drawable/edit"/>
 
         <RelativeLayout

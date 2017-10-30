@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Contact RetornaUser(String nomeUser){
         db = this.getReadableDatabase();
-        String query = "select * from contacts where name = '"+nomeUser+"'";
+        String query = "select * from contacts where uname = '"+nomeUser+"'";
         Cursor cursor = db.rawQuery(query, null);
 
         int indexUser = cursor.getColumnIndex("name");
@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public byte[] recuperaFoto(String nome){
         try{
             db = getReadableDatabase();
-            String query = "select * from contacts where name = '"+nome+"'";
+            String query = "select * from contacts where uname = '"+nome+"'";
             Cursor cursor = db.rawQuery(query, null);
             int indexFoto = cursor.getColumnIndex("Imagem");
             byte[] img = null;
@@ -146,7 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String UpdateContacts(Contact contact, byte[] foto){
+    public String UpdateContacts(Contact contact, byte[] foto, String userAtual){
         String result;
         System.out.println("olaqrida");
         if(contact.getName().equals("") || contact.getEmail().equals("") ||
@@ -157,12 +157,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(COLUMN_NAME, contact.getName());
-            values.put(COLUMN_EMAIL, contact.getEmail());
-            values.put(COLUMN_UNAME, contact.getUname());
+            values.put("name", contact.getName());
+            values.put("email", contact.getEmail());
+            values.put("uname", contact.getUname());
             values.put("Imagem", foto);
 
-            db.update(TABLE_NAME, values, "name = '"+contact.getUname()+"'", null);
+            db.update(TABLE_NAME, values, "uname = '"+userAtual+"'", null);
             db.close();
             result = "Atualização Feita com Sucesso!";
         }
