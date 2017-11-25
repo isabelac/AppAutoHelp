@@ -24,7 +24,7 @@
         </intent-filter>
 
     </activity>
-    <activity android:name=".Activity.RespostaActivity" android:parentActivityName=".MainActivity">
+    <activity android:name=".Activity.RespostaActivity"  android:parentActivityName=".MainActivity">
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="ahv1.app.autohelpv2.MainActivity" />
     </activity>
 
@@ -43,7 +43,7 @@
 
     <activity android:name=".EditaPerfil.AdicionaFotoPerfil" />
 
-    <activity android:name=".EditaPerfil.EditaPerfil" android:windowSoftInputMode="adjustPan|adjustNothing"
+    <activity android:name=".EditaPerfil.EditaPerfil"
         android:parentActivityName=".MainActivity">
 
         <meta-data android:name="android.support.PARENT_ACTIVITY"

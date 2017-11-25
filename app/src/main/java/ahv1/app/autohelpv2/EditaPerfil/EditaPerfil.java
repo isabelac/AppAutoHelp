@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +23,8 @@ import java.io.IOException;
 
 import ahv1.app.autohelpv2.Cadastro_Login.Contact;
 import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
+import ahv1.app.autohelpv2.Cadastro_Login.LoginActivity;
+import ahv1.app.autohelpv2.MainActivity;
 import ahv1.app.autohelpv2.R;
 
 public class EditaPerfil extends AppCompatActivity {
@@ -31,28 +36,30 @@ public class EditaPerfil extends AppCompatActivity {
     EditText editText3;
     String autor;
     Toolbar toolbar;
+    Bundle extra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edita_perfil);
 
+        extra = getIntent().getExtras();
+        if(extra!=null){
+            autor = extra.getString("Usuario");
+            System.out.println("O user atual é: "+ autor);
+        }
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbarPerfil);
-        toolbar.setTitle("AutoHelp");
+        toolbar.setTitle(autor);
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
 
         imagem = (ImageView) findViewById(R.id.imageView5);
         botao = (Button) findViewById(R.id.button4);
-        editText1 = (EditText) findViewById(R.id.EditUser);
+        TextView textImg = (TextView) findViewById(R.id.textMudaFoto);
         editText2 = (EditText) findViewById(R.id.EditNameUser);
         editText3 = (EditText) findViewById(R.id.EditEmail);
 
-        Bundle extra = getIntent().getExtras();
-        if(extra!=null){
-            autor = extra.getString("Usuario");
-        }
 
         DatabaseHelper bd2 = new DatabaseHelper(this);
         CircleImage circleImg = new CircleImage(this);
@@ -65,7 +72,6 @@ public class EditaPerfil extends AppCompatActivity {
         }
 
         Contact contact = bd2.RetornaUser(autor);
-        editText1.setText(contact.getUname());
         editText2.setText(contact.getName());
         editText3.setText(contact.getEmail());
 
@@ -84,13 +90,18 @@ public class EditaPerfil extends AppCompatActivity {
                     byteImg = imageAtual;
                 }
                 contatoNovo.setName(editText2.getText().toString());
-                contatoNovo.setUname(editText1.getText().toString());
                 contatoNovo.setEmail(editText3.getText().toString());
                 String resp = SalvaImage(byteImg, contatoNovo);
                 Toast.makeText(EditaPerfil.this, ""+resp+"", Toast.LENGTH_SHORT).show();
             }
         });
 
+        textImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AbreGaleria();
+            }
+        });
 
     }
 

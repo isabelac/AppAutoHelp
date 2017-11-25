@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_UNAME = "uname";
     private static final String COLUMN_PASS = "pass";
     SQLiteDatabase db;
+    public static String autorAtual = null;
 
     private static final String TABLE_CREATE = "create table contacts (id primary key not null," +
             "name text not null, email text not null, uname text not null, pass text not null, Imagem BLOB);";
@@ -149,8 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String UpdateContacts(Contact contact, byte[] foto, String userAtual){
         String result;
         System.out.println("olaqrida");
-        if(contact.getName().equals("") || contact.getEmail().equals("") ||
-                contact.getUname().equals("")){
+        if(contact.getName().equals("") || contact.getEmail().equals("")){
             result = "Por Favor, Preencha Todos os Campos";
         } else {
 
@@ -159,7 +159,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             values.put("name", contact.getName());
             values.put("email", contact.getEmail());
-            values.put("uname", contact.getUname());
             values.put("Imagem", foto);
 
             db.update(TABLE_NAME, values, "uname = '"+userAtual+"'", null);

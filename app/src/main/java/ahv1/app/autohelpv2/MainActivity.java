@@ -33,6 +33,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import ahv1.app.autohelpv2.Activity.Comentario;
+import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
 import ahv1.app.autohelpv2.Cadastro_Login.LoginActivity;
 import ahv1.app.autohelpv2.EditaPerfil.EditaPerfil;
 import ahv1.app.autohelpv2.Maps.MapsActivityAH;
@@ -58,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         if(user == null) {
             user = getIntent().getStringExtra("Username");
         }
+
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("AutoHelp");
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+       /* SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView;
         MenuItem menuItem = menu.findItem(R.id.Bpesquisa);
 
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint("Pesquisar . . .");
+        searchView.setQueryHint("Pesquisar . . .");*/
         return true;
     }
 

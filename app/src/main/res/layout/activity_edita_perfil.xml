@@ -41,39 +41,11 @@
         android:textColor="@android:color/holo_blue_light"/>
 
     <TextView
-        android:id="@+id/Nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textMudaFoto"
-        android:text="Nome de Usuário"
-        android:textStyle="bold|italic"
-        android:layout_marginTop="3dp"
-        android:textSize="16dp"
-        android:fontFamily="serif"
-        android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/EditUser"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/Nome"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="3dp"
-        android:elevation="10dp"
-        android:text="olaaaaaaa"
-        android:theme="@style/MyEditTextTheme"
-        android:textColor="@android:color/black"
-        android:ems="10" />
-
-    <TextView
         android:id="@+id/NomeU"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditUser"
+        android:layout_below="@+id/textMudaFoto"
         android:text="Nome"
         android:textStyle="bold|italic"
         android:layout_marginTop="3dp"
