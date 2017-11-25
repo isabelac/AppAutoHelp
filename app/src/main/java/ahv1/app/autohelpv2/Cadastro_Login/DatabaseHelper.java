@@ -135,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 values.put("Imagem", foto);
 
-                db.update("contacts", values, ("name = '" + autor + "'"), null);
+                db.update("contacts", values, ("uname = '" + autor + "'"), null);
                 db.close();
                 resultado = "Imagem Guardada com Sucesso";
             }
