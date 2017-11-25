@@ -53,7 +53,7 @@ import android.widget.ExpandableListView;
             return modeString+ Integer.toString( View.MeasureSpec.getSize( measureSpec ) );
         }
 
-        private static final int ROW_HEIGHT = 51;
+        private static final int ROW_HEIGHT = 50;
         private static final String LOG_TAG = "DebugExpandableListView";
         private int rows;
     }

@@ -16,69 +16,7 @@ import ahv1.app.autohelpv2.R;
  */
 
 public class TutoriaisFragment extends Fragment {
-    static final String listdesc[][][][] = {
-            { //Problemas
-                    {  // Motor
-                            {"Motor", "Vazamento de Agua"},
-                            {"     Problema na Bomba", ""},
-                            {"     Junta", ""},
-                            {"     Tubulação", ""}
-                    },
-                    {  // Superaquecimento
-                            {"Motor", "Superaquecimento"},
-                            {"     Ventoinha", ""},
-
-                    },
-                    {
-                            {"Motor", "Fumaça"},
-                            {"     Fumaça branca em excesso", ""},
-                            {"     Fumaça escura", ""}
-                    },
-                    {
-                            {"Motor", "Vazamento de óleo"},
-                            {"     Mangueira", ""},
-                            {"     Junta", ""},
-                            {"     Filtro", ""},
-                            {"     Reservatório", ""}
-
-                    }
-            },
-            {
-                    {
-                            {"Elétrica", "Faróis"},
-                            {"      Faróis queimados", ""}
-                    },
-                    {
-                            {"Elétrica", "Carro não liga"},
-                            {"      Motor de arranque", ""},
-                            {"      Bateria", ""}
-                    },
-                    {
-                            {"Elétrica", "Som"},
-                            {"      Bateria", ""}
-                    },
-                    {
-                            {"Elétrica", "Bateria"},
-                            {"      Bateria arriada", ""}
-                    }
-            },
-            {
-                    {
-                            {"Rodas", "Pneus"},
-                            {"      Pneus furados", ""}
-                    },
-                    {
-                            {"Rodas", "Rodas tortas"},
-                            {"      Parafuso da roda", ""},
-                            {"      Parafuso tambor do freio", ""}
-                    },
-                    {
-                            {"Rodas", "Barulhos nas rodas"},
-                            {"      Roda torta", ""},
-                            {"      Problemas comuns", ""}
-                    }
-            }
-    };
+    static final String listdesc[][][][] = new StringTutoriais().Stringtuto();
 
     View v;
     private ExpandableAdapter colorExpListAdapter;

@@ -10,22 +10,16 @@ import android.widget.SimpleExpandableListAdapter;
 import java.util.List;
 import java.util.Map;
 
+import ahv1.app.autohelpv2.fragment.StringTutoriais;
+
 public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapter {
 
     Context context;
     List listachild;
-    static final String listdesc[][][][] = {
-            {{{"Problema na Bomba", "Junta", "Tubulação"},
-                   {"Ventoinha"}, {"Fumaça branca em excesso", "Fumaça escura"},
-                   {"Mangueira", "Junta", "Filtro", "Reservatório"}}}, {
-            {{"Faróis Queimados"},{"Motor de arranque", "Bateria"},{"Bateria"},{"Bateria arriada"}}},
-            {{{"Pneu Furado"},{"Parafuso da roda", "Parafuso tambor do freio"},
-                   {"Roda torta", "Problemas comuns"}}}
-                };
+    static final String listdesc[][][][] = new StringTutoriais().StringtutoResp();
+    static final String listdescResp[][][][] = new StringTutoriais().StringtutorialResp();
 
-    static final String listapai[][] = {{"Faróis Queimados"}, {"Pneu Furado"}};
-
-    String prob;
+    String prob, resolucao;
     DebugExpandableListView[] listcache;
     int tpai, tchild;
 
@@ -49,18 +43,18 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 //   System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai);
-
                 prob = listdesc[tpai][tchild][groupPosition][childPosition];
+                resolucao = listdescResp[tpai][tchild][groupPosition][childPosition];
+                System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai+" "+prob);
                 AlertDialog.Builder alert =  new AlertDialog.Builder(context)
                         .setTitle("Resposta: ")
-                        .setMessage("Você clicou em: "+prob).
-                    setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        .setMessage(prob+"\n"+resolucao).
+                                setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
+                                    }
+                                });
 
                 alert.create().show();
             }
