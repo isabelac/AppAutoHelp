@@ -1,10 +1,16 @@
 package ahv1.app.autohelpv2.Maps;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,7 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import ahv1.app.autohelpv2.Activity.Comentario;
+import ahv1.app.autohelpv2.MainActivity;
 import ahv1.app.autohelpv2.R;
+import ahv1.app.autohelpv2.fragment.ForumDAO;
 
 
 public class MapsActivityAH extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -39,7 +53,7 @@ public class MapsActivityAH extends AppCompatActivity implements OnMapReadyCallb
     private Location lastlocation;
     private Marker currentlocation;
     public static final int REQUEST_LOCATION_CODE=99;
-    int PROXIMITY_RADIUS=5000;
+    int PROXIMITY_RADIUS=3000;
     double latitude ;
     double longitude ;
     Toolbar toolbar;
@@ -60,6 +74,30 @@ public class MapsActivityAH extends AppCompatActivity implements OnMapReadyCallb
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
 
+        Bundle extra  = getIntent().getExtras();
+        String user ="";
+
+        if(!extra.equals(null)){
+            user = ", "+extra.getString("usuario");
+        }
+
+        LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        boolean isOn = manager.isProviderEnabled( LocationManager.GPS_PROVIDER);
+
+        if(!isOn){
+            AlertDialog.Builder alert =  new AlertDialog.Builder(MapsActivityAH.this)
+                    .setTitle("Hey"+user+"!")
+                    .setMessage("Sua localização está desativada!")
+                    .setPositiveButton("Ativar Localização", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivityForResult(intent, 1);
+                        }
+                    });
+
+            alert.create().show();
+
+        }
     }
 
     @Override
@@ -127,6 +165,7 @@ public class MapsActivityAH extends AppCompatActivity implements OnMapReadyCallb
         String url = geturl(latitude,longitude,oficina);
         Object datatranfer[]=new Object[2];
         getnearbyplaces getnearbyplacesdata= new getnearbyplaces();
+        getnearbyplacesdata.setLatAtual(latlng);
         datatranfer[0]=mMap;
         datatranfer[1]=url;
         getnearbyplacesdata.execute(datatranfer);

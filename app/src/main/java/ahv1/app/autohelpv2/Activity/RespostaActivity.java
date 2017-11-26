@@ -105,7 +105,6 @@ public class RespostaActivity extends AppCompatActivity {
     }
 
     public void ButtonResposta(View v) {
-        System.out.println("onclik");
         if (v.getId() == R.id.ButtonResposta) {
             listaResp = (ListView) findViewById(R.id.ListR);
             EditText edit = (EditText) findViewById(R.id.EditTeste);
@@ -116,10 +115,7 @@ public class RespostaActivity extends AppCompatActivity {
 
             post.setDataPost(formatador.format(calendar.getTime()));
             post.setUsuario(Autor2);
-        System.out.println("è este autor: "+getIntent().getStringExtra("Username")+" "+Autor2);
             post.setTxt_comentario(edit.getText().toString());
-
-            System.out.println(edit.getText().toString());
 
             resp = new RespostaDAO(RespostaActivity.this);
             String resultado = resp.GuardaResposta(post, dataPost, listaResp, RespostaActivity.this);
@@ -128,7 +124,4 @@ public class RespostaActivity extends AppCompatActivity {
             edit.setText("");
         }
     }
-
-
-
 }

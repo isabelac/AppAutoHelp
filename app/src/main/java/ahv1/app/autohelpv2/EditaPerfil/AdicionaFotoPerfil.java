@@ -23,7 +23,7 @@ public class AdicionaFotoPerfil extends AppCompatActivity {
 
     ImageView imageView;
     byte[] byteImg = null;
-    String autor = null;
+    String autor = null, nAutor = null;
     Button botaoPular;
     Button botaoSalvar;
     TextView text;
@@ -42,6 +42,7 @@ public class AdicionaFotoPerfil extends AppCompatActivity {
 
         if(autr != null){
             autor = autr.getString("UserF");
+            nAutor = autr.getString("nomeCompleto");
         }
 
 
@@ -66,6 +67,7 @@ public class AdicionaFotoPerfil extends AppCompatActivity {
                 Toast.makeText(AdicionaFotoPerfil.this, ""+resp+"", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdicionaFotoPerfil.this, MainActivity.class);
                 intent.putExtra("Username", autor);
+                intent.putExtra("nomeCompleto", nAutor);
                 startActivity(intent);
             }
         });
@@ -75,6 +77,7 @@ public class AdicionaFotoPerfil extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdicionaFotoPerfil.this, MainActivity.class);
                 intent.putExtra("Username", autor);
+                intent.putExtra("nomeCompleto", nAutor);
                 startActivity(intent);
             }
         });

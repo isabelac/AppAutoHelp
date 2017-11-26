@@ -79,6 +79,7 @@ public class SignUp extends Activity {
                             Toast.makeText(SignUp.this, "Usuário Cadastrado com Sucesso", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUp.this, AdicionaFotoPerfil.class);
                             i.putExtra("UserF", unamestr);
+                            i.putExtra("nomeCompleto", helper.RetornaUser(c.getUname()).getName());
                             startActivity(i);
                         } else {
                             Toast.makeText(SignUp.this, "Nome de Usuário Já Cadastrado no Sistema", Toast.LENGTH_SHORT).show();

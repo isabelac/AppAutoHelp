@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ahv1.app.autohelpv2.Activity.Comentario;
+import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
 import ahv1.app.autohelpv2.adapter.ComentarioAdapter;
 
 /**
@@ -103,11 +104,12 @@ public class ForumDAO extends SQLiteOpenHelper {
 
             Comentario post;
 
+            DatabaseHelper helper = new DatabaseHelper(context);
             while (!cursor.isAfterLast()) {
                 post = new Comentario();
 
                 post.setTxt_comentario(cursor.getString(postIndex).toString());
-                post.setUsuario(cursor.getString(autorIndex).toString());
+                post.setUsuario(helper.RetornaUser(cursor.getString(autorIndex).toString()).getName());
                 post.setDataPost(cursor.getString(dataIndex).toString());
 
                 Log.i("Resultado: ", cursor.getString(postIndex).toString());

@@ -19,7 +19,12 @@ import java.util.List;
 public class getnearbyplaces extends AsyncTask<Object,String,String> {
     private String googleplacesdata;
     private GoogleMap mMap;
+    public static LatLng latAtual;
     String url;
+
+    public void setLatAtual(LatLng latAtual) {
+        this.latAtual = latAtual;
+    }
 
     @Override
     protected String doInBackground(Object... params) {
@@ -56,8 +61,8 @@ public class getnearbyplaces extends AsyncTask<Object,String,String> {
             markerOptions.title(placename+" : "+vicinity);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             mMap.addMarker(markerOptions);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latAtual));
+            //mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
 
 
         }

@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import ahv1.app.autohelpv2.Cadastro_Login.DatabaseHelper;
 import ahv1.app.autohelpv2.adapter.RespostaAdapter;
 
 
@@ -33,7 +34,6 @@ public class RespostaDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bancoDados) {
 
         bancoDados.execSQL(sql);
-        System.out.println("criei bd");
         this.bancoDados = bancoDados;
     }
 
@@ -53,8 +53,6 @@ public class RespostaDAO extends SQLiteOpenHelper {
 
                 bancoDados = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
-                System.out.println("entrei aqui");
-
                 String query = "select * from PostResposta";
                 Cursor cursor = bancoDados.rawQuery(query,null);
                 int count = cursor.getCount();
@@ -63,8 +61,6 @@ public class RespostaDAO extends SQLiteOpenHelper {
                 values.put("autor", comentario.getUsuario());
                 values.put("dataPost", comentario.getDataPost());
                 values.put("id_questao", dataPost);
-
-                System.out.println("entrei aqui tbm");
 
                 bancoDados.insert("PostResposta", null, values);
                 verificaGuarda = "Resposta Publicada";
@@ -86,22 +82,19 @@ public class RespostaDAO extends SQLiteOpenHelper {
             String query =  "SELECT * FROM PostResposta WHERE  id_questao = '"+ dataPost+"' ORDER BY dataPost DESC";
             Cursor cursorResp = bancoDados.rawQuery(query, null);
 
-            System.out.println("executei query");
             int postIndex = cursorResp.getColumnIndex("txtPost");
             int autorIndex = cursorResp.getColumnIndex("autor");
             int dataIndex = cursorResp.getColumnIndex("dataPost");
 
             listaItensResp = new ArrayList<>();
             cursorResp.moveToFirst();
-            System.out.println("Cheguei pra lista resposta");
-
+            DatabaseHelper helper = new DatabaseHelper(context);
             Comentario post;
             while (!cursorResp.isAfterLast()) {
                 post = new Comentario();
                 String teste = cursorResp.getString(autorIndex);
-                System.out.println("TesteAutor: "+teste+autorIndex);
                 post.setTxt_comentario(cursorResp.getString(postIndex));
-                post.setUsuario(cursorResp.getString(autorIndex).toString());
+                post.setUsuario(helper.RetornaUser(cursorResp.getString(autorIndex).toString()).getName());
                 post.setDataPost(cursorResp.getString(dataIndex));
 
                 //Log.i("Resultado: ", cursorResp.getString(autorIndex));
@@ -114,8 +107,6 @@ public class RespostaDAO extends SQLiteOpenHelper {
             itemResp = new RespostaAdapter(context, listaItensResp);
 
             lista.setAdapter(itemResp);
-
-            System.out.println("To aqui");
 
         }catch (Exception e){
             e.printStackTrace();

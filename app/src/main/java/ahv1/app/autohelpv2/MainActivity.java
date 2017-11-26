@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private ListView lista;
-    private static String user = null;
+    private static String user = null, user2 = null;
 
 
     protected SQLiteDatabase bancoDados;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         if(user == null) {
             user = getIntent().getStringExtra("Username");
         }
+            user2 = getIntent().getStringExtra("nomeCompleto");
 
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.Blocalizar:
                 Intent intent = new Intent(MainActivity.this, MapsActivityAH.class);
+                intent.putExtra("usuario", user2);
                 startActivity(intent);
                 return true;
             case R.id.EdPerfil:

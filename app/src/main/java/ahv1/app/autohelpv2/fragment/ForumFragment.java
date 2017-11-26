@@ -45,6 +45,7 @@ public class ForumFragment extends Fragment {
         forum.recuperaPost(lista, getActivity());
 
         usuario = getActivity().getIntent().getStringExtra("Username");
+        //usuario2 = getActivity().getIntent().getStringExtra("nomeCompleto");
         System.out.println("Username: "+usuario);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

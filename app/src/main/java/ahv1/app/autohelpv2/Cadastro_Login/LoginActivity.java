@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             String pass = b.getText().toString();
 
             String password = helper.searchPass(str);
+            Contact contact = helper.RetornaUser(str);
 
             if(pass.equals(password)) {
                 SharedPreferences.Editor edit  = sessao.edit();
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.putExtra("Username", str);
+                i.putExtra("nomeCompleto", contact.getName());
+                System.out.println("nome completo"+contact.getName());
                 startActivity(i);
             } else {
                 Toast temp = Toast.makeText(LoginActivity.this, "Usuário ou Senha Incorreto", Toast.LENGTH_SHORT);
