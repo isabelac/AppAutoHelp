@@ -29,41 +29,41 @@ public class StringTutoriais {
                              },
                              {  // Elétrica
                                      {"Elétrica", "Bateria"},
-                                     {"     Veículo não dá partida ou parte com dificuldade ", ""},
-                                     {"     Veículo não da partida (embora luzes no painel acendam)", ""},
+                                     {"     Problemas ao dá partida", ""},
+                                     {"     Luz liga mas carro não", ""},
                                      {"     Veículo de repente apagou", ""}
 
                              }
                      },
                      {
                              {
-                                     {"Rodas e pneus", "Rodas tortas"},
+                                     {"Rodas e pneus", "Alinhamento"},
                                      {"     Rodas tortas", ""}
                              },
                              {
-                                     {"Rodas e pneus", "Barulhos nas rodas"},
+                                     {"Rodas e pneus", "Ruídos"},
                                      {"     Barulhos nas rodas", ""}
                              },
                      },
                      {
                              {
-                                     {"Suspensão ", "Vibrações no volante"},
-                                     {"	Vibrações no volante", ""}
+                                     {"Suspensão ", "Volante"},
+                                     {"     Vibrações no volante", ""}
                              },
                              {
-                                     {"Suspensão ", "Barulhos"},
-                                     {"		Barulhos", ""}
+                                     {"Suspensão ", "Ruídos"},
+                                     {"     Barulhos", ""}
                              }
                      },
                      {
                                      {
                                              {"Motor e câmbio ", "Problema no Motor"},
                                              {"		Motor 'Engasgando'", ""},
-                                             {"		Falha no motor", ""}
+                                             {"     Falha no motor", ""}
                                      },
                                      {
-                                             {"Motor e câmbio ", "Superaquecimento "},
-                                             {"		Superaquecimento ", ""}
+                                             {"Motor e câmbio ", "Temperatura "},
+                                             {"	    Superaquecimento ", ""}
                                      },
                                      {
                                              {"Motor e câmbio ", "Vazamento de água  "},
@@ -85,7 +85,7 @@ public class StringTutoriais {
                              {
                                      {
                                              {"Ar Condicionado ", "Sujeira "},
-                                             {"    Sujeira no ar condicionado", ""}
+                                             {"    Sujeira no ar", ""}
                                      }
 
                              },
@@ -94,36 +94,36 @@ public class StringTutoriais {
                                              {"Freios ", "Problemas no Freio "},
                                              {"    Ruídos", ""},
                                              {"    Trepidação ao frear", ""},
-                                             {"    Nível do óleo de freio abaixou", ""},
+                                             {"    Nível do óleo baixo", ""},
                                              {"    Desconforto nos pedais", ""}
 
                                      }
                              },
                              {
                                      {
-                                             {" Problemas sonoros", "Barulhos em Geral "},
-                                             {"    Som contínuo, como um pequeno aspirador de pó ligado", ""},
-                                             {"    Pneus cantando ao fazer curvas em baixa velocidade", ""},
-                                             {"    Rangidos e estalos ao passar por irregularidades, lombadas ou valetas", ""},
-                                             {"    Ruídos ao virar o volante ", ""}
+                                             {"Problemas sonoros", "Barulhos em Geral "},
+                                             {"    Som de aspirador", ""},
+                                             {"    Pneus cantando", ""},
+                                             {"    Passagem por buracos", ""},
+                                             {"    Virando o volante ", ""}
 
                                      }
                              },
                              {
                                      {
-                                             {"Direção", "Problema no Volante"},
-                                             {"    Volante duro e manobras mais difíceis", ""}
+                                             {"Direção", "Dificuldade ao manobrar"},
+                                             {"    Volante duro", ""}
                                      }
                              },
                              {
                                      {
                                              {"Estrutura Geral", "Carro Torto"},
-                                             {"   Carro puxando para um dos lados", ""}
+                                             {"   Puxando para um lado", ""}
                                      }
                              },
                      {
                              {
-                                     {"Escapamento", "Aquecimento"},
+                                     {"Escapamento", "Temperatura"},
                                      {"   Aquecimento do assoalho", ""}
                              }
                      },
@@ -152,7 +152,7 @@ public class StringTutoriais {
                         {  // Elétrica
                                 {"Faróis queimados ","Faróis desregulados"},
                                 {"Luz de óleo", "Luz de freio ", "Luz de ABS ", "Luz de seta ", "Luz de farol", "Luz da injeção eletrônica acesa"},
-                                {"Veículo não dá partida ou parte com dificuldade ", "Veículo não da partida (embora luzes no painel acendam)", "Veículo de repente apagou"}
+                                {"Problemas ao dá partida", "Luz liga mas carro não", "Veículo de repente apagou"}
                         }
                 },
                 {
@@ -185,26 +185,26 @@ public class StringTutoriais {
                 },
                 {
                         {
-                                {"Ruídos", "Trepidação ao frear", "Nível do óleo de freio abaixou", "Desconforto nos pedais"}
+                                {"Ruídos", "Trepidação ao frear", "Nível do óleo baixo", "Desconforto nos pedais"}
 
                         }
                 },
                 {
                         {
-                                {"Som contínuo, como um pequeno aspirador de pó ligado", "Pneus cantando ao fazer curvas em baixa velocidade",
-                                        "Rangidos e estalos ao passar por irregularidades, lombadas ou valetas",
+                                {"Som de um aspirador", "Pneus cantando",
+                                        "Ruídos ao passar por buracos",
                                         "Ruídos ao virar o volante "}
 
                         }
                 },
                 {
                         {
-                                {"Volante duro e manobras mais difíceis"}
+                                {"Volante duro"}
                         }
                 },
                 {
                         {
-                                {"Carro puxando para um dos lados"}
+                                {"Puxando para um lados"}
                         }
                 },
                 {

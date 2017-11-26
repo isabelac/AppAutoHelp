@@ -6,12 +6,13 @@
 
     <TextView android:id="@+id/childname"
 		 android:paddingLeft="100px"
-         android:textSize="36px"
+         android:textSize="34px"
          android:textStyle="italic"
+         android:paddingBottom="5dp"
          android:layout_width="550px"
          android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:fontFamily="serif"/>
+         android:textColor="@android:color/black"
+         android:fontFamily="serif"/>
 
     <TextView android:id="@+id/rgb"
         android:paddingLeft="50dp"

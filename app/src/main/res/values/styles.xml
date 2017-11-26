@@ -14,4 +14,10 @@
         <item name="android:colorControlActivated">@color/colorPrimary</item>
     </style>
 
+    <style name="Theme_Dialog" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
 </resources>

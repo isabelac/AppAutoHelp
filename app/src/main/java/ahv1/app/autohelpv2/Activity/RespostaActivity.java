@@ -125,7 +125,7 @@ public class RespostaActivity extends AppCompatActivity {
             String resultado = resp.GuardaResposta(post, dataPost, listaResp, RespostaActivity.this);
 
             Toast.makeText(RespostaActivity.this, ""+resultado+"", Toast.LENGTH_SHORT).show();
-
+            edit.setText("");
         }
     }
 
