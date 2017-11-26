@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ButtonJanela(View v) {
-        System.out.println("onclik");
         if (v.getId() == R.id.floatingButton) {
             final EditText edit = new EditText(MainActivity.this.getApplicationContext());
             AlertDialog.Builder alert =  new AlertDialog.Builder(MainActivity.this)
@@ -153,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
                             post.setDataPost(formatador.format(calendar.getTime()));
                             post.setUsuario(getIntent().getStringExtra("Username"));
                             post.setTxt_comentario(edit.getText().toString());
-
-                            System.out.println(edit.getText().toString());
 
                             ForumDAO persist = new ForumDAO(MainActivity.this);
                             String resultado = persist.GuardaPost(post, lista, MainActivity.this);

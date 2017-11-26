@@ -49,7 +49,6 @@ public class SignUp extends Activity {
                 c.setEmail(emailstr);
                 c.setUname(unamestr);
                 c.setPass(pass1str);
-                System.out.println("Tá saindo isso: "+c.getEmail());
 
                 String[] arrayEmail = c.getEmail().split("");
                 String[]arrayemail2 = c.getEmail().split(".");
@@ -62,7 +61,6 @@ public class SignUp extends Activity {
                     }
                 }
 
-                System.out.println(verificaEmail +" "+verificaEmail2);
                 if(!c.getEmail().equals("") && !c.getName().equals("") && !c.getPass().equals("")
                         && !c.getUname().equals("")){
 
@@ -72,7 +70,6 @@ public class SignUp extends Activity {
                     } else {
 
                         String result = helper.searchPass(c.getUname());
-                        System.out.println("Resulta22: " + result);
 
                         if (result == null) {
                             helper.insertContact(c);

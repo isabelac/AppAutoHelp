@@ -149,7 +149,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public String UpdateContacts(Contact contact, byte[] foto, String userAtual){
         String result;
-        System.out.println("olaqrida");
         if(contact.getName().equals("") || contact.getEmail().equals("")){
             result = "Por Favor, Preencha Todos os Campos";
         } else {

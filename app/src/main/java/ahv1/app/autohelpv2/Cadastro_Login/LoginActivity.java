@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         sessao = getSharedPreferences("usuarioLogado" , MODE_PRIVATE);
-        System.out.println(sessao.toString());
         VerificaUser();
     }
 
@@ -51,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.putExtra("Username", str);
                 i.putExtra("nomeCompleto", contact.getName());
-                System.out.println("nome completo"+contact.getName());
                 startActivity(i);
             } else {
                 Toast temp = Toast.makeText(LoginActivity.this, "Usuário ou Senha Incorreto", Toast.LENGTH_SHORT);

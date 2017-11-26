@@ -47,7 +47,6 @@ public class ForumDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bancoDados) {
 
         bancoDados.execSQL(sql);
-        System.out.println("criei bd");
         this.bancoDados = bancoDados;
     }
 
@@ -59,7 +58,6 @@ public class ForumDAO extends SQLiteOpenHelper {
     }
 
     public String GuardaPost(Comentario comentario, ListView lista, Context context) {
-        System.out.println("entrei na funçao");
 
         try {
             if (comentario.getTxt_comentario().equals("")) {
@@ -98,9 +96,7 @@ public class ForumDAO extends SQLiteOpenHelper {
             int postIndex = cursor.getColumnIndex("txtPost");
             int autorIndex = cursor.getColumnIndex("autor");
             int dataIndex = cursor.getColumnIndex("dataPost");
-            System.out.println("tamanho :"+listaItens.size());
             cursor.moveToFirst();
-            System.out.println("Cheguei pra lista");
 
             Comentario post;
 
@@ -119,7 +115,6 @@ public class ForumDAO extends SQLiteOpenHelper {
             //itensAdaptados = new ArrayAdapter<String>(context, R.layout.list,teste);
             itensAdaptados = new ComentarioAdapter(context, listaItens);
 
-            System.out.println("tamanho 2: "+ listaItens.size());
             lista.setAdapter(itensAdaptados);
 
         }catch (Exception e){

@@ -46,7 +46,6 @@ public class EditaPerfil extends AppCompatActivity {
         extra = getIntent().getExtras();
         if(extra!=null){
             autor = extra.getString("Usuario");
-            System.out.println("O user atual é: "+ autor);
         }
         //inicializa toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbarPerfil);

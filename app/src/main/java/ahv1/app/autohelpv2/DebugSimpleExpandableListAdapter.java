@@ -5,15 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.SimpleExpandableListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ahv1.app.autohelpv2.adapter.AlertAdpter;
 import ahv1.app.autohelpv2.fragment.StringTutoriais;
 
 public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapter {
@@ -43,14 +39,11 @@ public class DebugSimpleExpandableListAdapter extends SimpleExpandableListAdapte
 
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View v = super.getChildView( groupPosition, childPosition, isLastChild, convertView, parent );
-        System.out.println("listdesc["+tpai+"]["+tchild+"]["+groupPosition+"]["+childPosition+"]");
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prob = listdesc[tpai][tchild][groupPosition][childPosition];
                 resolucao = listdescResp[tpai][tchild][groupPosition][childPosition];
-
-                System.out.println("Teste: "+groupPosition +" "+ childPosition+ " "+ tchild+" "+ tpai+" "+prob);
 
                 AlertDialog.Builder alert =  new AlertDialog.Builder(context)
                         .setTitle(prob)

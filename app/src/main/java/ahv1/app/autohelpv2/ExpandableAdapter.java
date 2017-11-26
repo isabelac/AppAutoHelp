@@ -64,7 +64,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             dev.setOnGroupClickListener(new Level2GroupExpandListener(groupPosition));
             listViewCache[groupPosition] = dev;
             v = dev;
-            System.out.println("Else aqui ");
         }
         return v;
     }
@@ -119,7 +118,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             m.put(KEY_COLORNAME, listdesc[level1][i][0][1]);
             result.add(m);
         }
-        System.out.println("tamanho lista pai: "+ result.size());
         return (List) result;
     }
 
@@ -149,7 +147,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             if ((level2view != null) && (level2view.isGroupExpanded(i)))
                 rowCtr += listdesc[level1][i].length - 1;    // then add the children too (minus the group descriptor)
         }
-        System.out.println("tamanho row: "+ rowCtr);
         this.row = rowCtr;
         return rowCtr;
     }
